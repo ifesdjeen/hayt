@@ -59,12 +59,31 @@
 
 (deftest test-insert
   (are-prepared
-   ["INSERT INTO foo (\"c\", a) VALUES (?, ?) USING TIMESTAMP ? AND TTL ?;"
-    ["d" "b" 100000 200000]]
+   ["INSERT INTO foo (\"c\", a) VALUES (?, ?) USING CONSISTENCY ? AND TIMESTAMP ? AND TTL ?;"
+    ["d" "b" "LOCAL_QUORUM" 100000 200000]]
    (insert :foo
            (values {"c" "d" :a "b" })
            (using :timestamp 100000
-                  :ttl 200000)))
+                  :ttl 200000
+                  :consistency :local-quorum)))
+
+  (are-prepared
+   ["INSERT INTO foo (\"c\", a) VALUES (?, ?) USING CONSISTENCY ? AND TIMESTAMP ? AND TTL ?;"
+    ["d" "b" "LOCAL_QUORUM" 100000 200000]]
+   (insert :foo
+           (values {"c" "d" :a "b" })
+           (using :timestamp 100000
+                  :ttl 200000
+                  :consistency :LOCAL_QUORUM)))
+
+  (are-prepared
+   ["INSERT INTO foo (\"c\", a) VALUES (?, ?) USING CONSISTENCY ? AND TIMESTAMP ? AND TTL ?;"
+    ["d" "b" "LOCAL_QUORUM" 100000 200000]]
+   (insert :foo
+           (values {"c" "d" :a "b" })
+           (using :timestamp 100000
+                  :ttl 200000
+                  :consistency "LOCAL_QUORUM")))
 
   (are-raw
    "INSERT INTO foo (\"c\", a) VALUES ('d', 'b') USING TIMESTAMP 100000 AND TTL 200000;"
