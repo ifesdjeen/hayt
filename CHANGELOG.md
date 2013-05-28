@@ -1,5 +1,15 @@
 # Changelog
 
+## X.X.X
+
+### Breaking changes
+
+* Allow preparing the consistency level, timestamp and ttl (this is only supported from Cassandra version X.X.X)
+
+### Non breaking changes
+
+* Add support for potential raw prepared values via `cql-raw`
+
 ## 1.0.3
 
 * ns change: `qbits.hayt.dsl.verb` becomes `qbits.hayt.dsl.statement`.
