@@ -438,7 +438,7 @@ And a useful test suite: https://github.com/riptano/cassandra-dtest/blob/master/
 
    :limit
    (fn [q limit]
-     (str "LIMIT " limit))
+     (str "LIMIT " (cql-value limit)))
 
    :values
    (fn [q values-map]
@@ -464,7 +464,7 @@ And a useful test suite: https://github.com/riptano/cassandra-dtest/blob/master/
      (->> args
           (map (fn [[n value]]
                  (str (-> n name string/upper-case)
-                      " " (cql-identifier value))))
+                      " " (cql-value value))))
           join-and
           (str "USING ")))
 
